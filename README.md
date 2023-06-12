@@ -14,7 +14,7 @@ TODO_Insert_TOC
 
 Rate-Limit Nullifier provides a mechanism by which a user can stake an amount of ERC20 tokens in exchange for the right to send anonymous messages off-chain, the staked amount denotes an agreement to limit the number of messages they can send off-chain to a certain number during each epoch.
 
-The circuits of the Rate-Limit Nullifier [circom-rln](https://github.com/zBlock-1/circom-rln) were reviewed over 15 days. The code review was performed by 1 auditor between 31st May, 2023 and 14th June, 2023. The repository was static during the review.
+The circuits of the [Rate-Limit Nullifier Github](https://github.com/zBlock-1/circom-rln) were reviewed over 15 days. The code review was performed by 1 auditor between 31st May, 2023 and 14th June, 2023. The repository was static during the review.
 
 The code was very well written and commented, and followed the specification documents correctly.
 
