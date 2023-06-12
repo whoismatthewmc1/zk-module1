@@ -170,6 +170,7 @@ template Withdraw() {
 ### 3. Low - Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.<a name="low3"></a>
 
 **REPORTED BY lwltea**:
+
 Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.
 
 #### Technical Details
@@ -198,6 +199,7 @@ Remove ```Ownable``` import and inheritance from RLN.sol
 ### 1. Gas - Custom errors are more gas efficient than `require` statements.<a name="gas1"></a>
 
 **REPORTED BY lwltea**:
+
 Custom errors are more gas efficient than `require` statements.
 
 #### Technical Details
@@ -214,6 +216,7 @@ Consider refactoring code in Solidity contracts to rather use Custom Errors
 ### 2. Gas - Incrementing within an unchecked block save gas.<a name="gas2"></a>
 
 **REPORTED BY lwltea**:
+
 Put identityCommitmentIndex += 1; in a unchecked block as its a uint256 being incremented by 1. Range checks are unnecessary here.
 
 #### Technical Details
