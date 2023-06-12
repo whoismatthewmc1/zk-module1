@@ -3,6 +3,7 @@
 **Auditors:**
 
  - Parsely
+ - lwltea
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -15,6 +16,9 @@
 7. [Findings Explanation](#findings-explanation)
     - [Low 1](#low1)
     - [Low 2](#low2)
+    - [Low 3](#low3)
+    - [Gas 1](#gas1)
+    - [Gas 2](#gas2)
 8. [Final remarks](#final-remarks)
 9. [CircomSpect Output](#circomSpect-output)
 
@@ -36,7 +40,8 @@ The scope of the review consisted of the following circuits within the repo:
 - rln.circom
 - utils.circom
 - withdraw.circom
-
+- **Contract**
+- RLN.sol
 
 This review is a code review to identify potential vulnerabilities in the code. The reviewers did not investigate security practices or operational security and assumed that privileged accounts could be trusted. The review was done based on the official specification. The review may not have identified all potential attack vectors or areas of vulnerability.
 
@@ -44,7 +49,6 @@ yAcademy and the auditors make no warranties regarding the security of the code 
 
 ## Assumptions
 - We have assumed that the trusted setup will be done correctly and all relevant artefacts kept safe. 
-- We have assumed that the node operators have restricted access and/or are trusted.
 
 ## Issues not addressed
 - We have not addressed the fact that a user can self-slash using a different receiver wallet address, as the user will then forfeit the fees portion of their stake.
@@ -65,7 +69,7 @@ yAcademy and the auditors make no warranties regarding the security of the code 
 | Testing and verification | Good |  All needed tests implemented |
 
 ## Findings Explanation
-Only 2 low impact bugs are being reported.
+Only 3 low impact bugs are being reported, and 2 Gas optimizations.
 
 Findings are broken down into sections by their respective impact:
 ---
@@ -162,6 +166,68 @@ template Withdraw() {
 ```
 
 #### Developer Response
+
+### 3. Low - Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.<a name="low3"></a>
+
+**REPORTED BY lwltea** Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.
+
+#### Technical Details
+The withdraw circuit includes a public input for ```address``` to prevent front-running by a withdrawer/slasher.
+```
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import {IVerifier} from "./IVerifier.sol";
+
+/// @title Rate-Limiting Nullifier registry contract
+/// @dev This contract allows you to register RLN commitment and withdraw/slash.
+contract RLN is Ownable {
+    using SafeERC20 for IERC20;
+```
+Ownable is never used within the RLN contract.
+#### Impact
+Low.
+
+#### Recommendation
+
+Remove ```Ownable``` import and inheritance from RLN.sol
+
+#### Developer Response
+
+### 1. Gas - Custom errors are more gas efficient than `require` statements.<a name="gas1"></a>
+
+**REPORTED BY lwltea** Custom errors are more gas efficient than `require` statements.
+
+#### Technical Details
+According to [https://blog.soliditylang.org/2021/04/21/custom-errors/](https://blog.soliditylang.org/2021/04/21/custom-errors/) custom errors are more gas efficient than require statements
+#### Impact
+Low.
+
+#### Recommendation
+
+Consider refactoring code in Solidity contracts to rather use Custom Errors
+
+#### Developer Response
+
+### 2. Gas - Incrementing within an unchecked block save gas.<a name="gas2"></a>
+
+**REPORTED BY lwltea** Put identityCommitmentIndex += 1; in a unchecked block as its a uint256 being incremented by 1. Range checks are unnecessary here.
+
+#### Technical Details
+In RLN.sol [https://github.com/zBlock-1/rln-contracts/blob/main/src/RLN.sol#L126](https://github.com/zBlock-1/rln-contracts/blob/main/src/RLN.sol#L126)
+```
+ identityCommitmentIndex += 1;
+```
+Put identityCommitmentIndex += 1; in a unchecked block as its a uint256 being incremented by 1. Range checks are unnecessary here
+#### Impact
+Low.
+
+#### Recommendation
+
+Consider using the an unchecked block for incrementing `identityCommitmentIndex`
+
+#### Developer Response
+
 
 
 ## Final remarks
