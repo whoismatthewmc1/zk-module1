@@ -6,7 +6,17 @@
 
 ## Table of Contents <!-- omit in toc -->
 
-TODO_Insert_TOC
+1. [Review Summary](#review-summary)
+2. [Scope](#scope)
+3. [Assumptions](#assumptions)
+4. [Issues not addressed](#issues-not-addressed)
+5. [Tools used](#tools-used)
+6. [Code Evaluation Matrix](#code-evaluation-matrix)
+7. [Findings Explanation](#findings-explanation)
+    - [Low 1](#low1)
+    - [Low 2](#low2)
+8. [Final remarks](#final-remarks)
+9. [CircomSpect Output](#circomSpect-output)
 
 ## Review Summary
 
@@ -43,25 +53,26 @@ yAcademy and the auditors make no warranties regarding the security of the code 
 - Manual review
 - Circomspect, although limited did prduce the findings at the bottom of the report
 
-Code Evaluation Matrix
+## Code Evaluation Matrix
 ---
 
 | Category                 | Mark    | Description |
 | ------------------------ | ------- | ----------- |
-| Mathematics              | Good | correctly implemented |
+| Mathematics              | Good | Correctly implemented |
 | Complexity               | Good | Not coded to make it complex, kept as simple as possible |
 | Code stability           | Good    | No issues found |
 | Documentation            | Very Good | Clear,concise and well-written |
 | Testing and verification | Good |  All needed tests implemented |
 
 ## Findings Explanation
+Only 2 low impact bugs are being reported.
 
 Findings are broken down into sections by their respective impact:
 ---
 
 ## Low Findings
 
-### 1. Low - Difference between documents and implementation
+### 1. Low - Difference between documents and implementation<a name="low1"></a>
 
 the documantation mentions that the rate limit is between 1 and userMessageLimit:
 ```text
@@ -119,7 +130,7 @@ Signaling will use other circuit, where your limit is private input, and the cou
 
 
 
-### 2. Low - It is possible that unused public input may be optimized out by the compiler
+### 2. Low - It is possible that unused public input may be optimized out by the compiler<a name="low2"></a>
 
 According to the comman vulnerabilites list on the [0xParc github #5](https://github.com/0xPARC/zk-bug-tracker#5-unused-public-inputs-optimized-out) it is possbile that unused public inputs may be optimised out.
 
@@ -152,42 +163,13 @@ template Withdraw() {
 
 #### Developer Response
 
-### 3. Low - It is possible that unused public input may be optimized out by the compiler
-
-According to the comman vulnerabilites list on the [0xParc github #5](https://github.com/0xPARC/zk-bug-tracker#5-unused-public-inputs-optimized-out) it is possbile that unused public inputs may be optimised out.
-
-#### Technical Details
-The withdraw circuit includes a public input for ```address``` to prevent front-running by a withdrawer/slasher.
-```
-template Withdraw() {
-    signal input identitySecret;
-    signal input address;
-
-    signal output identityCommitment <== Poseidon(1)([identitySecret]);
-}
-```
-```address``` is unused in the circuit.
-#### Impact
-Low. It seems to be hypothetical and I was unable to recreate it.
-
-#### Recommendation
-
-As per the Tornado cash Resolution the project may consider adding a constraint just to have the value used within the circuit.
-```
-template Withdraw() {
-    signal input identitySecret;
-    signal input address;
-
-    signal output identityCommitment <== Poseidon(1)([identitySecret]);
-    signal addressSquared == address * address;
-}
-```
-
-#### Developer Response
 
 ## Final remarks
 
 The code is very well written and did not present any vulnerabilites that would cause significant impact. The logic is easy to follow and concise. It was a pleasure to learn by auditing this codebase.
+
+I have looked into the vulnerability [discussed](https://github.com/0xPARC/zk-bug-tracker#1-dark-forest-v03-missing-bit-length-check) about the LessThan circomlib template, however since the values are first checked with Num2Bits, this negates any possible attacks.
+
 
 ## CircomSpect Output
 ### RLN circuit
