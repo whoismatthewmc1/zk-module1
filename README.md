@@ -20,7 +20,7 @@ Rate-Limit Nullifier provides a mechanism in which a user can stake an amount of
 
 The circuits of the Rate-Limit Nullifier [circom-rln](https://github.com/zBlock-1/circom-rln) were reviewed over 15 days. The code review was performed by 1 auditor between 31st May, 2023 and 14th June, 2023. The repository was static during the review.
 
-The code was very well written and commented, and followed the specification documents correctly, no deviations or anomallies were found.
+The code was very well written and commented, and followed the specification documents correctly.
 
 ## Scope
 
@@ -63,7 +63,7 @@ Findings are broken down into sections by their respective impact:
 
 ## Low Findings
 
-### 1. Low - Inconsistency between documents and implementation
+### 1. Low - Difference between documents and implementation
 
 the documantation mentions that the rate limit is between 1 and k:
 ```text
