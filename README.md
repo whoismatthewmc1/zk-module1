@@ -157,7 +157,7 @@ template Withdraw() {
     signal input address;
 
     signal output identityCommitment <== Poseidon(1)([identitySecret]);
-    signal addressSquared == address * address;
+    signal addressSquared <== address * address;
 }
 ```
 
