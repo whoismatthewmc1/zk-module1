@@ -51,7 +51,7 @@ yAcademy and the auditors make no warranties regarding the security of the code 
 
 ## Tools used
 - Manual review
-- Circomspect, although limited did prduce the findings at the bottom of the report
+- Circomspect, although limited did produce the findings at the bottom of the report
 
 ## Code Evaluation Matrix
 ---
@@ -168,7 +168,7 @@ template Withdraw() {
 
 The code is very well written and did not present any vulnerabilites that would cause significant impact. The logic is easy to follow and concise. It was a pleasure to learn by auditing this codebase.
 
-I have looked into the vulnerability [discussed](https://github.com/0xPARC/zk-bug-tracker#1-dark-forest-v03-missing-bit-length-check) about the LessThan circomlib template, however since the values are first checked with Num2Bits, this negates any possible attacks.
+I have looked into the vulnerability [discussed](https://github.com/0xPARC/zk-bug-tracker#1-dark-forest-v03-missing-bit-length-check) about the ```LessThan``` circomlib template, however since the values are first checked with ```Num2Bits```, this negates any possible attacks.
 
 
 ## CircomSpect Output
