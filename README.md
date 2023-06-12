@@ -23,6 +23,7 @@
     - [Gas 3](#gas3)
     - [Informational 1](#informational1)
     - [Informational 2](#informational2)
+    - [Informational 3](#informational3)
 8. [Final remarks](#final-remarks)
 9. [CircomSpect Output](#circomSpect-output)
 
@@ -367,7 +368,7 @@ Specifically to exclude fee-on-transfer tokens, a check can be added to verify t
 
 #### Technical Details
 
-Nothing stops users from immediately creating a withdrawal after they register, allowing them to avoid the `FREEZE_PERIOD` usually associated with a `release` call.
+Nothing prevents users from immediately creating a withdrawal after they register, allowing them to avoid the `FREEZE_PERIOD` usually associated with a `release` call.
 
 #### Impact
 
