@@ -132,7 +132,7 @@ Signaling will use other circuit, where your limit is private input, and the cou
 
 ### 2. Low - It is possible that unused public input may be optimized out by the compiler<a name="low2"></a>
 
-According to the comman vulnerabilites list on the [0xParc github #5](https://github.com/0xPARC/zk-bug-tracker#5-unused-public-inputs-optimized-out) it is possbile that unused public inputs may be optimised out.
+According to the common vulnerabilites list on the [0xParc github #5](https://github.com/0xPARC/zk-bug-tracker#5-unused-public-inputs-optimized-out) it is possbile that unused public inputs may be optimised out.
 
 #### Technical Details
 The withdraw circuit includes a public input for ```address``` to prevent front-running by a withdrawer/slasher.
