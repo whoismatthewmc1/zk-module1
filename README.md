@@ -169,7 +169,8 @@ template Withdraw() {
 
 ### 3. Low - Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.<a name="low3"></a>
 
-**REPORTED BY lwltea** Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.
+**REPORTED BY lwltea**:
+Contract RLN inherits from Ownable but ownable functionality isn't actually used by the contract.
 
 #### Technical Details
 The withdraw circuit includes a public input for ```address``` to prevent front-running by a withdrawer/slasher.
@@ -196,7 +197,8 @@ Remove ```Ownable``` import and inheritance from RLN.sol
 
 ### 1. Gas - Custom errors are more gas efficient than `require` statements.<a name="gas1"></a>
 
-**REPORTED BY lwltea** Custom errors are more gas efficient than `require` statements.
+**REPORTED BY lwltea**:
+Custom errors are more gas efficient than `require` statements.
 
 #### Technical Details
 According to [https://blog.soliditylang.org/2021/04/21/custom-errors/](https://blog.soliditylang.org/2021/04/21/custom-errors/) custom errors are more gas efficient than require statements
@@ -211,7 +213,8 @@ Consider refactoring code in Solidity contracts to rather use Custom Errors
 
 ### 2. Gas - Incrementing within an unchecked block save gas.<a name="gas2"></a>
 
-**REPORTED BY lwltea** Put identityCommitmentIndex += 1; in a unchecked block as its a uint256 being incremented by 1. Range checks are unnecessary here.
+**REPORTED BY lwltea**:
+Put identityCommitmentIndex += 1; in a unchecked block as its a uint256 being incremented by 1. Range checks are unnecessary here.
 
 #### Technical Details
 In RLN.sol [https://github.com/zBlock-1/rln-contracts/blob/main/src/RLN.sol#L126](https://github.com/zBlock-1/rln-contracts/blob/main/src/RLN.sol#L126)
